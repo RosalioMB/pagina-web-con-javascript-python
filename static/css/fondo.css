@@ -1,0 +1,4 @@
+body {
+background: #403B4A;  /* color de fondo */
+background: -webkit-linear-gradient(to right, #E7E9BB, #403B4A);  /*creamos una imagen para el degradado lineal   */
+background: linear-gradient(to right, #E7E9BB, #403B4A); /* creamos una imagen para el degradado lineal */

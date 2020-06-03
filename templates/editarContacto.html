@@ -1,0 +1,31 @@
+{% extends "layout.html" %} <!-- invocamos  -->
+{% block body %} <!-- pegamos -->
+
+	<div class="col-md-4 offset-md-4">
+    	<div class="card card-body"> <!-- ccerramos formulario que mandara datos por el metodo post -->
+			<form action="/actualizar_contacto/{{susdatos.0}}" method="POST">
+
+				<div class="form-group"> 
+					<input type="text" name="nombre" placeholder="Nombre" value="{{susdatos.1}}" class="form-control">
+				</div>
+				<div class="form-group">
+					<input type="number" name="telefono" placeholder="Telefono" value="{{susdatos.2}}" class="form-control">
+				</div>
+				<div class="form-group">
+					<input type="email" name="correo" placeholder="Correo" value="{{susdatos.3}}" class="form-control">
+				</div>
+
+				<div class="form-group">  <!-- boton que permitira mandar los datos al precionarlo -->
+				<button type="submit" class="btn btn-primary btn-block ">
+					Guardar
+				</button>
+				</div>
+				
+			</form>
+    	</div>
+	</div>
+
+
+
+
+{% endblock %} <!-- pegamos -->

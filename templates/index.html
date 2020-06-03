@@ -1,0 +1,93 @@
+{% extends "layout.html" %} <!-- la { ..  % nos permiten utilizar etiquetas gracias a ajax2-->
+{% block body %} <!-- Esta etiqueta nos permite agregarle codigo de  layout html-->
+
+
+<div class="row"> <!-- creamos una clase de tipo row -->
+	 <div class="col-md-5"> <!-- le damos columnas -->
+		{% with mensajes = get_flashed_messages() %} <!-- capturamos mensajes -->
+
+		{% if mensajes %} <!-- si existen mandamos la alerta -->
+		{% for men in mensajes %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ men }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		</div>
+		<!-- ccerramos todo -->
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
+	 	<div class="card card-body">  <!-- creamos nuestra clase  -->
+			<form action="/agregar_contacto" method="POST"> <!-- creamos nuestro formulario que enviara datos con el metodo PST aparte le decimos a donde balla con esos datos -->
+				<!-- ccreamos etiqueta de tipo texto y las otras dependiendo del tipo de dato que nos ayudaran a guardar -->
+				<div class="form-group">
+					<input type="text" name="nombre" placeholder="Nombre"  class="form-control"> 
+				</div>
+
+				<div class="form-group">
+				<input type="number" name="telefono" placeholder="Telefono"  class="form-control"> 
+				</div>
+
+
+				<div class="form-group">
+				<input type="email" name="correo" placeholder="Correo"  class="form-control"> 
+				</div>
+
+				<div class="form-group"> 
+				<button type="submit" class="btn btn-primary btn-block"> <!-- creamos boton que nos permitira mandar los datos -->
+					Guardar
+				</button>
+				</div>																	
+			</form>
+	 	</div>
+	 </div>	 
+	<div class="col-md-7"> <!-- creamos la tabla que almacenara todo -->
+		<table class="table table-striped table-hover table-bordered table-sm bg-white">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Nombre</td> <!-- creamos las columnas de la tabla -->
+					<td>Telefono</td>
+					<td>Correo</td>
+					<td>Opciones</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% for persona in contactos %}  <!-- creamos ciclo con datos que nos llegaran gracias al ajax -->
+					<tr>
+						<td>{{ persona.0 }}</td>
+						<td>{{ persona.1 }}</td> <!-- genramos filas con los datos  -->
+						<td>{{ persona.2 }}</td>
+						<td>{{ persona.3 }}</td>
+						<td>  <!-- cada fila tendra dos enlaces uno para borrar y otro para editar -->
+							<a href="/editar_contacto/{{persona.0}}" class="btn btn-secondary confirmacion_de_editar">Editar</a>
+							<a href="/eliminar_contacto/{{persona.0}}" class="btn btn-danger btn-delete confirmacion_de_borrar">Eliminar</a>
+						</td>
+					</tr> 
+				{% endfor %} <!-- cerramos el ciclo -->
+			</tbody>
+		</table>
+	 </div>
+	<br><br><br><br>
+
+	<div class="col-md-5">
+		<div class="card card-body">
+		<form action="/buscar_dato" method="POST">
+			<div class="form-group">
+				<input type="number" name="id" placeholder="Id a Buscar"  class="form-control" required> 
+			</div>
+			<div>
+				<button type="submit" class="btn btn-primary btn-block">
+					Buscar
+				</button>
+			</div>	
+	    </div>
+	</div>	
+</div>
+
+
+
+
+ 
+{% endblock %} <!-- nos ayuda a colocar el codigo que tenemos al final del layout -->
